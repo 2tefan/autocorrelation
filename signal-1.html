@@ -27,7 +27,7 @@
 
     <link rel="stylesheet" href="css/main.css" />
     <script type="text/javascript" src="js/scripts.js"></script>
-    <script type="text/javascript" src="js/square-wave-signal.js"></script>
+    <script type="text/javascript" src="js/signal-1.js"></script>
   </head>
 
   <body>
@@ -69,9 +69,9 @@
 
     <div class="grid_container">
       <section class="chart_section">
-        <h1>Rechtecksignal</h1>
+        <h1>Senden</h1>
         <div class="chart-container">
-          <canvas id="signal_plain_rect"></canvas>
+          <canvas id="signal_send"></canvas>
         </div>
 
         <table>
@@ -80,16 +80,16 @@
             <th>Wert</th>
           </tr>
           <tr>
-            <td>Periode [ms]</td>
-            <td id="signal_plain_rect_period">0</td>
+            <td>Start des Pulses [ms]</td>
+            <td id="signal_send_start">0</td>
           </tr>
           <tr>
-            <td>Frequenz [kHz]</td>
-            <td id="signal_plain_rect_frequency">0</td>
+            <td>Ende des Pulse [ms]</td>
+            <td id="signal_send_stop">0</td>
           </tr>
           <tr>
             <td>Amplitude [V]</td>
-            <td id="signal_plain_rect_amplitude">0</td>
+            <td id="signal_send_stop_amplitude">0</td>
           </tr>
         </table>
       </section>

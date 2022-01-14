@@ -1,12 +1,13 @@
 const number = 10;
 
-const Tin = 20 + 2 * number; // ms
-const signalHeight = 5 + number;
-var Tmeasuring = 10 * Tin; // ms
-var Tresolution = 1 / Tmeasuring; // kHz
+const pulseLength = 100 + 2 * number; // ms
+const signalLength = 15 * pulseLength; // ms
+const signalHeight = 1;
+
+const delaySend = 0;
+const delayReceive = 5 * pulseLength;
 
 const samplingInterval = 1; // ms
-const numberOfHarmonics = 100;
 
 function getDefaultOptions(titleX) {
   return {
@@ -190,11 +191,11 @@ function reconstructedSignal(c, phi) {
   return [label, signal];
 }
 
-function getRectSignal(ratio = 2) {
-  let arr = new Array(Tmeasuring);
+function getNormalSignal() {
+  let arr = new Array(signalLength);
 
-  for (t = 0; t < Tmeasuring; t += samplingInterval) {
-    if (t % Tin < Tin / ratio) {
+  for (t = 0; t < signalLength; t += samplingInterval) {
+    if (delaySend <= t && t <= delaySend + pulseLength) {
       arr[t] = signalHeight;
     } else {
       arr[t] = 0;
