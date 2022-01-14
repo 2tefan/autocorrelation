@@ -191,11 +191,11 @@ function reconstructedSignal(c, phi) {
   return [label, signal];
 }
 
-function getNormalSignal() {
+function getNormalSignal(delay = delaySend) {
   let arr = new Array(signalLength);
 
   for (t = 0; t < signalLength; t += samplingInterval) {
-    if (delaySend <= t && t <= delaySend + pulseLength) {
+    if (delay <= t && t <= delay + pulseLength) {
       arr[t] = signalHeight;
     } else {
       arr[t] = 0;

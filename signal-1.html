@@ -94,22 +94,32 @@
         </table>
       </section>
 
-      <section class="chart_section">
-        <h1>Fourier Analyse</h1>
-        <div class="chart-container">
-          <canvas id="signal_fourier_rect"></canvas>
-        </div>
-        <table>
-          <tr>
-            <th>Eigenschaft</th>
-            <th>Wert</th>
-          </tr>
-          <tr>
-            <td>Gemessene Zeit [ms]</td>
-            <td id="signal_fourier_rect_measuring_time">0</td>
-          </tr>
-        </table>
-      </section>
+      <div class="grid_container">
+        <section class="chart_section">
+          <h1>Empfangen</h1>
+          <div class="chart-container">
+            <canvas id="signal_receive"></canvas>
+          </div>
+  
+          <table>
+            <tr>
+              <th>Eigenschaft</th>
+              <th>Wert</th>
+            </tr>
+            <tr>
+              <td>Start des Pulses [ms]</td>
+              <td id="signal_receive_start">0</td>
+            </tr>
+            <tr>
+              <td>Ende des Pulse [ms]</td>
+              <td id="signal_receive_stop">0</td>
+            </tr>
+            <tr>
+              <td>Amplitude [V]</td>
+              <td id="signal_receive_stop_amplitude">0</td>
+            </tr>
+          </table>
+        </section>
 
       <section class="chart_section">
         <h1>Rekonstruiertes Signal</h1>
