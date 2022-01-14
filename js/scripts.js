@@ -131,66 +131,6 @@ function addOvershoot(name, Uamax, Ua) {
   $(name).text(formatFloat((Uamax / Ua - 1) * 100) + " %");
 }
 
-function getKp() {
-  return ((T2 / T1) * Math.sqrt(2)) / (2 * Vs);
-}
-
-function fourier(ft, measuring = Tmeasuring) {
-  let label = [];
-  let fourier = [];
-  let a = 0;
-  let b = 0;
-  let c = new Array(measuring);
-  let phi = new Array(measuring);
-  let k = 0;
-
-  let poi = [];
-
-  for (k = 0; k < numberOfHarmonics; k++) {
-    a = 0;
-    b = 0;
-
-    for (t = 0; t < measuring; t += samplingInterval) {
-      a +=
-        (2 / measuring) * ft[t] * Math.cos(2 * Math.PI * k * t * Tresolution);
-      b +=
-        (2 / measuring) * ft[t] * Math.sin(2 * Math.PI * k * t * Tresolution);
-      c[k] = Math.sqrt(a * a + b * b);
-      phi[k] = Math.atan(a / b);
-    }
-  }
-  c[0] = c[0] / 2;
-
-  for (k = 0; k < numberOfHarmonics; k++) {
-    let value = c[k];
-    let pos = k * Tresolution * 1000;
-
-    label.push(pos);
-    fourier.push(value);
-    if (value > 1) {
-      poi.push([pos, value]);
-    }
-  }
-
-  return [label, fourier, c, phi];
-}
-
-function reconstructedSignal(c, phi) {
-  let label = new Array(Tmeasuring);
-  let signal = new Array(Tmeasuring);
-
-  for (t = 0; t < Tmeasuring; t += samplingInterval) {
-    label[t] = t;
-    signal[t] = 0;
-
-    for (k = 0; k < numberOfHarmonics; k++) {
-      signal[t] += c[k] * Math.sin(k * 2 * Math.PI * t * Tresolution + phi[k]);
-    }
-  }
-
-  return [label, signal];
-}
-
 function getNormalSignal(delay = delaySend) {
   let arr = new Array(signalLength);
 
@@ -205,34 +145,17 @@ function getNormalSignal(delay = delaySend) {
   return arr;
 }
 
-function initFourierRect(ctx, ctx_recon, signal) {
-  let values = fourier(signal);
-  let options = getDefaultOptionsFourier("Frequenz [kHz]");
-
-  let chart = new Chart(ctx, {
-    type: "bar",
-    data: getData(values[0], values[1]),
-    options: options,
-  });
-
-  initReconstructedSignal(ctx_recon, values[2], values[3]);
-}
-
-function initReconstructedSignal(ctx, c, phi, withAnnotation = true) {
-  let values = reconstructedSignal(c, phi);
-  let options = getDefaultOptions("Zeit [ms]");
-
-  if(withAnnotation)
-  {
-    prepareAnnotations(options);
-    addAnnotationX(options, "𝜏", Tin, "𝜏 = " + Tin);
+function getAutocorrelation(send, receive) {
+  let arr = new Array(signalLength);
+  for (i = 0; i < send.length; i++) {
+    arr[i] = 0;
+    for (t = 0; t < send.length; t++) {
+      arr[i] = arr[i] + send[t] * receive[(t + i) % (receive.length-1)];
+    }
   }
+  console.log(arr);
 
-  let chart = new Chart(ctx, {
-    type: "line",
-    data: getData(values[0], values[1]),
-    options: options,
-  });
+  return arr;
 }
 
 function labelSignal(signal) {

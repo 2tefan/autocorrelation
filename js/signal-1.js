@@ -9,8 +9,9 @@ function redraw() {
 }
 
 function init() {
-  initSignalSend();
-  initSignalReceive();
+  send = initSignalSend();
+  receive = initSignalReceive();
+  initAutocorrelcation(send, receive);
 }
 
 function initSignalSend() {
@@ -39,8 +40,8 @@ function initSignalSend() {
     data: getData(values[0], values[1]),
     options: options,
   });
+  return signal;
 }
-
 
 function initSignalReceive() {
   const ctx = $("#signal_receive");
@@ -68,4 +69,34 @@ function initSignalReceive() {
     data: getData(values[0], values[1]),
     options: options,
   });
+  return signal;
+}
+
+function initAutocorrelcation(send, receive) {
+  const ctx = $("#signal_autocorrelation");
+  let signal = getAutocorrelation(send, receive);
+  let values = labelSignal(signal);
+  let options = getDefaultOptions("Zeit [ms]");
+
+  prepareAnnotations(options);
+  //addAnnotationX(options, "Start", delaySend, "Start = " + delaySend);
+  // addAnnotationX(
+  //   options,
+  //   "End",
+  //   delaySend + pulseLength,
+  //   "End = " + (delaySend + pulseLength)
+  // );
+
+  // $("#signal_send_start").text(formatFloat(delaySend));
+  // $("#signal_send_stop").text(formatFloat(delaySend + pulseLength));
+  // $("#signal_send_stop_amplitude").text(formatFloat(signalHeight));
+
+  // $("#signal_fourier_rect_measuring_time").text(formatFloat(Tmeasuring));
+
+  let chart = new Chart(ctx, {
+    type: "line",
+    data: getData(values[0], values[1]),
+    options: options,
+  });
+  return signal;
 }
