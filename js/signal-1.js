@@ -76,7 +76,7 @@ function initAutocorrelcation(send, receive) {
   const ctx = $("#signal_autocorrelation");
   let signal = getAutocorrelation(send, receive);
   let values = labelSignal(signal);
-  let options = getDefaultOptions("Zeit [ms]");
+  let options = getDefaultOptionsAutocorrelcation("Zeit [ms]", signal);
 
   prepareAnnotations(options);
   //addAnnotationX(options, "Start", delaySend, "Start = " + delaySend);

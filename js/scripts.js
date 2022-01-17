@@ -35,12 +35,13 @@ function getDefaultOptions(titleX) {
   };
 }
 
-function getDefaultOptionsFourier(titleX, ymax = signalHeight * 1.5) {
+function getDefaultOptionsAutocorrelcation(titleX, data) {
   let options = getDefaultOptions(titleX);
+  let max = Math.max.apply(Math, data);
 
   options.scales.x.ticks = {
     callback: function (val, index) {
-      return formatFloat(this.getLabelForValue(index)) + " kHz";
+      return formatFloat(this.getLabelForValue(index)) + " ms";
     },
   };
 
@@ -52,15 +53,14 @@ function getDefaultOptionsFourier(titleX, ymax = signalHeight * 1.5) {
     tickLength: 10,
   };
 
-  options.scales.y.max = ymax;
+  options.scales.y.max = max * 1.5;
 
   options.plugins.datalabels = {
     formatter: function (value, context) {
       return (
         formatFloat(context.chart.data.labels[context.dataIndex]) +
-        " kHz\n" +
-        formatFloat(value) +
-        " V"
+        " ms\n" +
+        formatFloat(value)
       );
     },
     align: "end",
@@ -73,7 +73,7 @@ function getDefaultOptionsFourier(titleX, ymax = signalHeight * 1.5) {
     offset: 20,
     color: "#1E2C53",
     display: function (context) {
-      return context.dataset.data[context.dataIndex] > 1;
+      return context.dataset.data[context.dataIndex] >= max;
     },
   };
   return options;
