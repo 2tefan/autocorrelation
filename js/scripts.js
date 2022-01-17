@@ -152,7 +152,7 @@ function getAutocorrelation(send, receive) {
   for (i = 0; i < send.length; i++) {
     arr[i] = 0;
     for (t = 0; t < send.length; t += SAMPLING_INTERVAL) {
-      arr[i] = arr[i] + send[t] * receive[(t + i) % receive.length];
+      arr[i] = arr[i] + send[t] * receive[(t + i) % receive.length]; // TODO
     }
   }
 
