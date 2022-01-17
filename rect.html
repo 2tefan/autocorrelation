@@ -23,7 +23,7 @@
 
     <link rel="stylesheet" href="css/main.css" />
     <script type="text/javascript" src="js/scripts.js"></script>
-    <script type="text/javascript" src="js/signal-2.js"></script>
+    <script type="text/javascript" src="js/rect.js"></script>
   </head>
 
   <body>
@@ -76,16 +76,20 @@
             <th>Wert</th>
           </tr>
           <tr>
-            <td>Start des Pulses [ms]</td>
-            <td id="signal_send_start">0</td>
+            <td>Dauer des Zustandes »Ein« [ms]</td>
+            <td id="signal_send_t_on">0</td>
           </tr>
           <tr>
-            <td>Ende des Pulse [ms]</td>
-            <td id="signal_send_stop">0</td>
+            <td>Dauer des Zustandes »Aus« [ms]</td>
+            <td id="signal_send_t_off">0</td>
           </tr>
           <tr>
-            <td>Amplitude [V]</td>
-            <td id="signal_send_stop_amplitude">0</td>
+            <td>Periodendauer [ms]</td>
+            <td id="signal_send_period">0</td>
+          </tr>
+          <tr>
+            <td>Delay [ms]</td>
+            <td id="signal_send_delay">0</td>
           </tr>
         </table>
       </section>
@@ -103,18 +107,23 @@
               <th>Wert</th>
             </tr>
             <tr>
-              <td>Start des Pulses [ms]</td>
-              <td id="signal_receive_start">0</td>
+              <td>Dauer des Zustandes »Ein« [ms]</td>
+              <td id="signal_receive_t_on">0</td>
             </tr>
             <tr>
-              <td>Ende des Pulse [ms]</td>
-              <td id="signal_receive_stop">0</td>
+              <td>Dauer des Zustandes »Aus« [ms]</td>
+              <td id="signal_receive_t_off">0</td>
             </tr>
             <tr>
-              <td>Amplitude [V]</td>
-              <td id="signal_receive_stop_amplitude">0</td>
+              <td>Periodendauer [ms]</td>
+              <td id="signal_receive_period">0</td>
+            </tr>
+            <tr>
+              <td>Delay [ms]</td>
+              <td id="signal_receive_delay">0</td>
             </tr>
           </table>
+        </section>
         </section>
 
         <section class="chart_section">

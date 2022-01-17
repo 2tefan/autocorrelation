@@ -132,6 +132,21 @@ function getNormalSignal(delay = DELAY_SEND, length = PULSE_LENGTH) {
   return arr;
 }
 
+function getRect(delay, signalHeight, tOn, tOff, signalLength) {
+  let arr = new Array(signalLength);
+  let period = tOn + tOff;
+
+  for (t = 0; t < signalLength; t += SAMPLING_INTERVAL) {
+    if (delay <= t && (t - delay) % period <= tOn) {
+      arr[t] = signalHeight;
+    } else {
+      arr[t] = 0;
+    }
+  }
+
+  return arr;
+}
+
 function getAutocorrelation(send, receive) {
   let arr = new Array(SIGNAL_LENGTH);
   for (i = 0; i < send.length; i++) {
