@@ -153,7 +153,6 @@ function getAutocorrelation(send, receive) {
       arr[i] = arr[i] + send[t] * receive[(t + i) % (receive.length-1)];
     }
   }
-  console.log(arr);
 
   return arr;
 }
