@@ -1,13 +1,13 @@
-const number = 10;
+const NUMBER = 10;
 
-const pulseLength = 100 + 2 * number; // ms
-const signalLength = 15 * pulseLength; // ms
-const signalHeight = 1;
+const PULSE_LENGTH = 100 + 2 * NUMBER; // ms
+const SIGNAL_LENGTH = 15 * PULSE_LENGTH; // ms
+const SIGNAL_HEIGHT = 1;
 
-const delaySend = 0;
-const delayReceive = 5 * pulseLength;
+const DELAY_SEND = 0;
+const DELAY_RECEIVE = 5 * PULSE_LENGTH;
 
-const samplingInterval = 1; // ms
+const SAMPLING_INTERVAL = 1; // ms
 
 function getDefaultOptions(titleX) {
   return {
@@ -131,12 +131,12 @@ function addOvershoot(name, Uamax, Ua) {
   $(name).text(formatFloat((Uamax / Ua - 1) * 100) + " %");
 }
 
-function getNormalSignal(delay = delaySend) {
-  let arr = new Array(signalLength);
+function getNormalSignal(delay = DELAY_SEND, length = PULSE_LENGTH) {
+  let arr = new Array(SIGNAL_LENGTH);
 
-  for (t = 0; t < signalLength; t += samplingInterval) {
-    if (delay <= t && t <= delay + pulseLength) {
-      arr[t] = signalHeight;
+  for (t = 0; t < SIGNAL_LENGTH; t += SAMPLING_INTERVAL) {
+    if (delay <= t && t <= delay + length) {
+      arr[t] = SIGNAL_HEIGHT;
     } else {
       arr[t] = 0;
     }
@@ -146,7 +146,7 @@ function getNormalSignal(delay = delaySend) {
 }
 
 function getAutocorrelation(send, receive) {
-  let arr = new Array(signalLength);
+  let arr = new Array(SIGNAL_LENGTH);
   for (i = 0; i < send.length; i++) {
     arr[i] = 0;
     for (t = 0; t < send.length; t++) {
@@ -158,7 +158,7 @@ function getAutocorrelation(send, receive) {
 }
 
 function getAutocorrelationNormalized(send, receive) {
-  let arr = new Array(signalLength);
+  let arr = new Array(SIGNAL_LENGTH);
   let sendSum = 0;
   let receiveSum = 0;
   for (i = 0; i < send.length; i++) {
@@ -180,7 +180,7 @@ function getAutocorrelationNormalized(send, receive) {
 function labelSignal(signal) {
   let label = new Array(signal.length);
 
-  for (t = 0; t < signal.length; t += samplingInterval) {
+  for (t = 0; t < signal.length; t += SAMPLING_INTERVAL) {
     label[t] = t;
   }
   return [label, signal];

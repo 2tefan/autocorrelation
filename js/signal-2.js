@@ -9,27 +9,28 @@ function redraw() {
 }
 
 function init() {
-  send = initSignalSend();
-  receive = initSignalReceive();
+  let pulseLength = PULSE_LENGTH + 50;
+  send = initSignalSend(pulseLength);
+  receive = initSignalReceive(pulseLength);
   initAutocorrelcation(send, receive);
   initAutocorrelcationNormalized(send, receive);
 }
 
-function initSignalSend() {
+function initSignalSend(pulseLength) {
   const ctx = $("#signal_send");
-  let signal = getNormalSignal();
+  let signal = getNormalSignal(DELAY_SEND, pulseLength);
   let values = labelSignal(signal);
   let options = getDefaultOptions("Zeit [ms]");
   prepareAnnotations(options);
   addAnnotationX(
     options,
     "End",
-    DELAY_SEND + PULSE_LENGTH,
-    "End = " + (DELAY_SEND + PULSE_LENGTH)
+    DELAY_SEND + pulseLength,
+    "End = " + (DELAY_SEND + pulseLength)
   );
 
   $("#signal_send_start").text(formatFloat(DELAY_SEND));
-  $("#signal_send_stop").text(formatFloat(DELAY_SEND + PULSE_LENGTH));
+  $("#signal_send_stop").text(formatFloat(DELAY_SEND + pulseLength));
   $("#signal_send_stop_amplitude").text(formatFloat(SIGNAL_HEIGHT));
 
   let chart = new Chart(ctx, {
@@ -40,9 +41,9 @@ function initSignalSend() {
   return signal;
 }
 
-function initSignalReceive() {
+function initSignalReceive(pulseLength) {
   const ctx = $("#signal_receive");
-  let signal = getNormalSignal(DELAY_RECEIVE);
+  let signal = getNormalSignal(DELAY_RECEIVE, pulseLength);
   let values = labelSignal(signal);
   let options = getDefaultOptions("Zeit [ms]");
 
@@ -51,12 +52,12 @@ function initSignalReceive() {
   addAnnotationX(
     options,
     "End",
-    DELAY_RECEIVE + PULSE_LENGTH,
-    "End = " + (DELAY_RECEIVE + PULSE_LENGTH)
+    DELAY_RECEIVE + pulseLength,
+    "End = " + (DELAY_RECEIVE + pulseLength)
   );
 
   $("#signal_receive_start").text(formatFloat(DELAY_RECEIVE));
-  $("#signal_receive_stop").text(formatFloat(DELAY_RECEIVE + PULSE_LENGTH));
+  $("#signal_receive_stop").text(formatFloat(DELAY_RECEIVE + pulseLength));
   $("#signal_receive_stop_amplitude").text(formatFloat(SIGNAL_HEIGHT));
 
   let chart = new Chart(ctx, {
