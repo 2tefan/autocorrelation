@@ -148,10 +148,10 @@ function getRect(delay, signalHeight, tOn, tOff, signalLength) {
 }
 
 function getAutocorrelation(send, receive) {
-  let arr = new Array(SIGNAL_LENGTH);
+  let arr = new Array(send.length);
   for (i = 0; i < send.length; i++) {
     arr[i] = 0;
-    for (t = 0; t < send.length; t++) {
+    for (t = 0; t < send.length; t += SAMPLING_INTERVAL) {
       arr[i] = arr[i] + send[t] * receive[(t + i) % receive.length];
     }
   }
@@ -160,7 +160,7 @@ function getAutocorrelation(send, receive) {
 }
 
 function getAutocorrelationNormalized(send, receive) {
-  let arr = new Array(SIGNAL_LENGTH);
+  let arr = new Array(send.length);
   let sendSum = 0;
   let receiveSum = 0;
   for (i = 0; i < send.length; i++) {
@@ -168,7 +168,7 @@ function getAutocorrelationNormalized(send, receive) {
     sendSum += Math.sqrt(send[i]);
     receiveSum += Math.sqrt(receive[i]);
 
-    for (t = 0; t < send.length; t++) {
+    for (t = 0; t < send.length; t += SAMPLING_INTERVAL) {
       arr[i] = arr[i] + send[t] * receive[(t + i) % receive.length];
     }
   }
