@@ -12,6 +12,7 @@ function init() {
   send = initSignalSend();
   receive = initSignalReceive();
   initAutocorrelcation(send, receive);
+  initAutocorrelcationNormalized(send, receive);
 }
 
 function initSignalSend() {
@@ -19,9 +20,7 @@ function initSignalSend() {
   let signal = getNormalSignal();
   let values = labelSignal(signal);
   let options = getDefaultOptions("Zeit [ms]");
-
   prepareAnnotations(options);
-  //addAnnotationX(options, "Start", delaySend, "Start = " + delaySend);
   addAnnotationX(
     options,
     "End",
@@ -32,8 +31,6 @@ function initSignalSend() {
   $("#signal_send_start").text(formatFloat(delaySend));
   $("#signal_send_stop").text(formatFloat(delaySend + pulseLength));
   $("#signal_send_stop_amplitude").text(formatFloat(signalHeight));
-
-  // $("#signal_fourier_rect_measuring_time").text(formatFloat(Tmeasuring));
 
   let chart = new Chart(ctx, {
     type: "line",
@@ -62,8 +59,6 @@ function initSignalReceive() {
   $("#signal_receive_stop").text(formatFloat(delayReceive + pulseLength));
   $("#signal_receive_stop_amplitude").text(formatFloat(signalHeight));
 
-  // $("#signal_fourier_rect_measuring_time").text(formatFloat(Tmeasuring));
-
   let chart = new Chart(ctx, {
     type: "line",
     data: getData(values[0], values[1]),
@@ -77,21 +72,22 @@ function initAutocorrelcation(send, receive) {
   let signal = getAutocorrelation(send, receive);
   let values = labelSignal(signal);
   let options = getDefaultOptionsAutocorrelcation("Zeit [ms]", signal);
-
   prepareAnnotations(options);
-  //addAnnotationX(options, "Start", delaySend, "Start = " + delaySend);
-  // addAnnotationX(
-  //   options,
-  //   "End",
-  //   delaySend + pulseLength,
-  //   "End = " + (delaySend + pulseLength)
-  // );
 
-  // $("#signal_send_start").text(formatFloat(delaySend));
-  // $("#signal_send_stop").text(formatFloat(delaySend + pulseLength));
-  // $("#signal_send_stop_amplitude").text(formatFloat(signalHeight));
+  let chart = new Chart(ctx, {
+    type: "line",
+    data: getData(values[0], values[1]),
+    options: options,
+  });
+  return signal;
+}
 
-  // $("#signal_fourier_rect_measuring_time").text(formatFloat(Tmeasuring));
+function initAutocorrelcationNormalized(send, receive) {
+  const ctx = $("#signal_autocorrelation_normalized");
+  let signal = getAutocorrelationNormalized(send, receive);
+  let values = labelSignal(signal);
+  let options = getDefaultOptionsAutocorrelcation("Zeit [ms]", signal);
+  prepareAnnotations(options);
 
   let chart = new Chart(ctx, {
     type: "line",

@@ -150,8 +150,28 @@ function getAutocorrelation(send, receive) {
   for (i = 0; i < send.length; i++) {
     arr[i] = 0;
     for (t = 0; t < send.length; t++) {
-      arr[i] = arr[i] + send[t] * receive[(t + i) % (receive.length-1)];
+      arr[i] = arr[i] + send[t] * receive[(t + i) % receive.length];
     }
+  }
+
+  return arr;
+}
+
+function getAutocorrelationNormalized(send, receive) {
+  let arr = new Array(signalLength);
+  let sendSum = 0;
+  let receiveSum = 0;
+  for (i = 0; i < send.length; i++) {
+    arr[i] = 0;
+    sendSum += Math.sqrt(send[i]);
+    receiveSum += Math.sqrt(receive[i]);
+
+    for (t = 0; t < send.length; t++) {
+      arr[i] = arr[i] + send[t] * receive[(t + i) % receive.length];
+    }
+  }
+  for (i = 0; i < send.length; i++) {
+    arr[i] = arr[i] / Math.sqrt(sendSum * receiveSum);
   }
 
   return arr;

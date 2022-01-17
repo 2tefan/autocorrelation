@@ -33,7 +33,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Fourier Analysis</a>
+        <a class="navbar-brand" href="#">Autocorrelation</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -121,12 +121,19 @@
           </table>
         </section>
 
-      <section class="chart_section">
-        <h1>Autokorrelation</h1>
-        <div class="chart-container">
-          <canvas id="signal_autocorrelation"></canvas>
-        </div>
-      </section>
+        <section class="chart_section">
+          <h1>Autokorrelation</h1>
+          <div class="chart-container">
+            <canvas id="signal_autocorrelation"></canvas>
+          </div>
+        </section>
+
+        <section class="chart_section">
+          <h1>Autokorrelation (Normiert)</h1>
+          <div class="chart-container">
+            <canvas id="signal_autocorrelation_normalized"></canvas>
+          </div>
+        </section>
     </div>
   </body>
 </html>
