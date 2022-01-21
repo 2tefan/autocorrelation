@@ -152,7 +152,7 @@ function getAutocorrelation(send, receive) {
   for (i = 0; i < send.length; i++) {
     arr[i] = 0;
     for (t = 0; t < send.length; t += SAMPLING_INTERVAL) {
-      arr[i] = arr[i] + send[t] * receive[(t + i) % receive.length]; // TODO
+      arr[i] += + send[t] * receive[(t + i) % receive.length]; // TODO
     }
   }
 
@@ -169,11 +169,11 @@ function getAutocorrelationNormalized(send, receive) {
     receiveSum += Math.pow(receive[i], 2);
 
     for (t = 0; t < send.length; t += SAMPLING_INTERVAL) {
-      arr[i] = arr[i] + send[t] * receive[(t + i) % receive.length];
+      arr[i] += + send[t] * receive[(t + i) % receive.length];
     }
   }
   for (i = 0; i < send.length; i++) {
-    arr[i] = arr[i] / Math.sqrt(sendSum * receiveSum);
+    arr[i] /= Math.sqrt(sendSum * receiveSum);
   }
 
   return arr;
