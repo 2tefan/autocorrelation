@@ -48,23 +48,22 @@ function initSignalSend(signalHeight, tOn, tOff, signalLength) {
 
 function initSignalReceive(signalHeight, tOn, tOff, signalLength) {
   const ctx = $("#signal_receive");
-  let signal = getRect(DELAY_RECEIVE, signalHeight, tOn, tOff, signalLength);
+  let signal = getRect(DELAY_SEND, signalHeight, tOn, tOff, signalLength);
   let values = labelSignal(signal);
   let options = getDefaultOptions("Zeit [ms]");
 
   prepareAnnotations(options);
-  addAnnotationX(options, "Start", DELAY_RECEIVE, "Start = " + DELAY_RECEIVE);
   addAnnotationX(
     options,
     "End",
-    DELAY_RECEIVE + PULSE_LENGTH,
-    "End = " + (DELAY_RECEIVE + PULSE_LENGTH)
+    DELAY_SEND + PULSE_LENGTH,
+    "End = " + (DELAY_SEND + PULSE_LENGTH)
   );
 
   $("#signal_receive_t_on").text(formatFloat(tOn));
   $("#signal_receive_t_off").text(formatFloat(tOff));
   $("#signal_receive_period").text(formatFloat(tOn + tOff));
-  $("#signal_receive_delay").text(formatFloat(DELAY_RECEIVE));
+  $("#signal_receive_delay").text(formatFloat(DELAY_SEND));
 
   let chart = new Chart(ctx, {
     type: "line",
