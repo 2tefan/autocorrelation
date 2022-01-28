@@ -10,7 +10,7 @@ function redraw() {
 
 function init() {
   let pulseLength = PULSE_LENGTH + 50;
-  send = initSignalSend(pulseLength);
+  send = initSignalSend(PULSE_LENGTH);
   receive = initSignalReceive(pulseLength);
   initAutocorrelcation(send, receive);
   initAutocorrelcationNormalized(send, receive);
@@ -18,7 +18,7 @@ function init() {
 
 function initSignalSend(pulseLength) {
   const ctx = $("#signal_send");
-  let signal = getNormalSignal(DELAY_SEND, pulseLength);
+  let signal = getNormalSignal(DELAY_SEND, PULSE_LENGTH);
   let values = labelSignal(signal);
   let options = getDefaultOptions("Zeit [ms]");
   prepareAnnotations(options);

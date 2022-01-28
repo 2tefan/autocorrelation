@@ -69,11 +69,16 @@ function getDefaultOptionsAutocorrelcation(titleX, data) {
     borderRadius: 5,
     borderWidth: 2,
     borderColor: "#1E2C53",
-    padding: 4,
-    offset: 20,
+    padding: 2,
+    rotation: 270,
+    offset: 18,
     color: "#1E2C53",
     display: function (context) {
-      return context.dataset.data[context.dataIndex] >= max;
+      return (
+        context.dataset.data[context.dataIndex] >= max &&
+        (context.dataset.data[context.dataIndex - 1] < max ||
+          context.dataset.data[context.dataIndex + 1] < max)
+      );
     },
   };
   return options;
@@ -152,7 +157,7 @@ function getAutocorrelation(send, receive) {
   for (i = 0; i < send.length; i++) {
     arr[i] = 0;
     for (t = 0; t < send.length; t += SAMPLING_INTERVAL) {
-      arr[i] += + send[t] * receive[(t + i) % receive.length]; // TODO
+      arr[i] += +send[t] * receive[(t + i) % receive.length]; // TODO
     }
   }
 
@@ -169,7 +174,7 @@ function getAutocorrelationNormalized(send, receive) {
     receiveSum += Math.pow(receive[i], 2);
 
     for (t = 0; t < send.length; t += SAMPLING_INTERVAL) {
-      arr[i] += + send[t] * receive[(t + i) % receive.length];
+      arr[i] += +send[t] * receive[(t + i) % receive.length];
     }
   }
   for (i = 0; i < send.length; i++) {
