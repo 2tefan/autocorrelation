@@ -2,7 +2,7 @@ const NUMBER = 10;
 
 const PULSE_LENGTH = 100 + 2 * NUMBER; // ms
 const SIGNAL_LENGTH = 15 * PULSE_LENGTH; // ms
-const SIGNAL_HEIGHT = 1;
+const SIGNAL_HEIGHT = NUMBER;
 
 const DELAY_SEND = 0;
 const DELAY_RECEIVE = 5 * PULSE_LENGTH;
@@ -53,7 +53,7 @@ function getDefaultOptionsAutocorrelcation(titleX, data) {
     tickLength: 10,
   };
 
-  options.scales.y.max = max * 1.5;
+  options.scales.y.max = max * 1.8;
 
   options.plugins.datalabels = {
     formatter: function (value, context) {
